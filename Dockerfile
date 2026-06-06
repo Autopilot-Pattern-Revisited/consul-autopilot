@@ -5,9 +5,15 @@ ARG ALPINE_VERSION=3.23.4
 FROM hashicorp/consul:${CONSUL_VERSION} AS consul-source
 FROM alpine:${ALPINE_VERSION} AS final
 
+LABEL org.opencontainers.image.title="Consul Autopilot" \
+      org.opencontainers.image.description="Consul server image for the Autopilot Pattern" \
+      org.opencontainers.image.licenses="MPL-2.0 AND LicenseRef-HashiCorp-BUSL-1.1" \
+      org.opencontainers.image.source="https://github.com/Autopilot-Pattern-Revisited/consul-autopilot"
+
 COPY --from=consul-source /bin/consul /bin/consul
 RUN apk add bash tini curl
 COPY --chmod=755 generate-config-and-start.sh /generate-config-and-start.sh
+COPY LICENSE THIRD_PARTY_NOTICES.md /licenses/
 
 VOLUME /data
 EXPOSE 8300 8301 8301/udp 8302 8302/udp 8500 8600 8600/udp

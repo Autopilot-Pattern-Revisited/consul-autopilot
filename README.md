@@ -63,3 +63,9 @@ Data is stored under `/data`, which is declared as a Docker volume.
 Manual workflow runs expose `consul_version` and `alpine_version` inputs, which are passed to the Dockerfile as `CONSUL_VERSION` and `ALPINE_VERSION` build args.
 
 The workflow also attempts to mark the GHCR package public after publishing. If GitHub does not allow the repository token to change package visibility, set the package to public once in the GHCR package settings.
+
+## Licensing
+
+The source code authored for this repository is licensed under the Mozilla Public License 2.0. See [LICENSE](LICENSE).
+
+The published container image also redistributes third-party software. In particular, it copies the Consul binary from the official HashiCorp Consul image. Consul is licensed separately by IBM/HashiCorp; current Consul releases such as the Dockerfile default, `1.22.7`, are under the Business Source License 1.1. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for details and upstream license links.
