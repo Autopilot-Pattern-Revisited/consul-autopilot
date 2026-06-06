@@ -1,0 +1,35 @@
+services:
+  consul:
+    image: ghcr.io/autopilot-pattern-revisited/consul-autopilot:latest
+    environment:
+      BOOTSTRAP_EXPECT: 3
+      CONSUL_HOSTNAME: consul
+      CONSUL_DATACENTER: testdc
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8500-8502:8500"
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+      replicas: 3
+    volumes:
+      - type: volume
+        source: consul-data
+        target: /data
+        volume: {}
+    networks:
+      - consul
+
+volumes:
+  consul-data: {}
+
+networks:
+  consul: {}
